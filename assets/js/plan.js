@@ -1,44 +1,52 @@
+var connectType = 0, connectOption = 0, connectDetail = 0, productId = 0;
 
 document.querySelector("#formCheckZip").addEventListener("click", function (event) {
     event.preventDefault()
 })
 
 async function checkAvailableZipCode() {
+    $("#callCharge").hide()
+    $("#callChargeDetail").html('')
     const zipCode = $("#zipCode").val().trim()
 
     if (zipCode.length === 0) {
         $("#alertAvailable").show()
         $("#choosePlanBlock").hide()
-        $("#textAvailableArea").text("Please fill your city zipcode")
+        $("#choosePlanOption").hide()
+        $("#textAvailableArea").html(`<h2 style='font-size: 24px;'>Please fill your city zipcode</h2>`)
 
         return
     }
 
     const data = await fetchDynamicAPI("checkAvailableZipCode", { ZipCode: zipCode })
-    if (data[0].result === 1) {
+    if (parseInt(data[0].result) === 1) {
         $("#alertAvailable").show()
         $("#choosePlanBlock").show()
-        $("#textAvailableArea").html("Great! Our service is available in your area <br /> <span>Choose your plan</span>")
+        $("#planDetail").attr('disabled', "true")
+        $("#choosePlanOption").hide()
+        $("#planDetail").html(`<option value="1" selected disabled hidden>Choose here</option>`)
+        $("#textAvailableArea").html(`<p>Our pricing plan for you</p> <h2 style='font-size: 24px;' >Great! Our service is available in your area.</h2>`)
     } else {
         $("#alertAvailable").show()
         $("#choosePlanBlock").hide()
-        $("#textAvailableArea").text("Your area is not available now")
+        $("#choosePlanOption").hide()
+        $("#textAvailableArea").html("<h2 style='font-size: 24px;'>Your area is not available now</h2>")
     }
 
 }
 
-async function choosePlan() {
-    const data = await fetchDynamicAPI("getAllPlan", {})
+// async function choosePlan() {
+//     const data = await fetchDynamicAPI("getAllPlan", {})
 
-    const htmlData = data.map(x => {
-        return `
-            <option value="${x.Id}">
-                ${x.ConnectionType}
-            </option>
-        `
-    }).join("")
-    $("#connectionType").html(htmlData)
-}
+//     const htmlData = data.map(x => {
+//         return `
+//             <option value="${x.Id}">
+//                 ${x.ConnectionType}
+//             </option>
+//         `
+//     }).join("")
+//     $("#connectionType").html(htmlData)
+// }
 
 
 
@@ -46,7 +54,7 @@ async function getAllPlan() {
     const data = await fetchDynamicAPI("getAllPlan", {})
     const htmlData = data.map(x => {
 
-        // console.log(x)
+        // console.log(x.Amount)
         const formatMoney = x.Amount.toLocaleString('en-US', {
             style: 'currency',
             currency: 'USD',
@@ -59,7 +67,7 @@ async function getAllPlan() {
                             <h4>${x.ConnectionType.replace('Connection', '<br /> Connection')}</h4>
                         </div>
                         <div class="card-mid">
-                            <h4>${formatMoney}</h4>
+                            <h4>\$<span style="color: #ff3e3f; font-size: 30px; font-weight: 800; padding-right: 3px;" data-plan-id-${x.Id}>${x.Amount.toFixed(2)}</span></h4>
                         </div>
                         <div class="card-bottom">
                             <ul>
@@ -69,7 +77,7 @@ async function getAllPlan() {
                                 <li>Enjoy family on weekends</li>
                                 <li>Up to 100% discount security deposit</li>
                             </ul>
-                            <a onclick="goToCheckZipCode()" class="borders-btn">Order Now</a>
+                            <a style="cursor:pointer" onclick="selectPlan(${x.Id})" class="borders-btn">Choose this plan</a>
                         </div>
                     </div>
                 </div>
@@ -80,8 +88,64 @@ async function getAllPlan() {
 }
 getAllPlan();
 
+async function selectPlan(PlanId) {
+    const connectionTypeCharge = $(`[data-plan-id-${PlanId}]`).text()
+    const taxStandard = connectionTypeCharge * 12.5 / 100
 
-function goToCheckZipCode() {
-    const element = document.getElementById("checkZipCode")
-    $(window).scrollTop(element.getBoundingClientRect().top + document.documentElement.scrollTop - 250)
+    $("#choosePlanBlock").hide()
+    $("#choosePlanOption").show()
+    connectType = PlanId
+    $("#standardInstall").text(connectionTypeCharge)
+    $("#standardInstallTax").text(taxStandard)
+    $("#oneTimeTotal").text(parseFloat(connectionTypeCharge) + parseFloat(taxStandard))
+
+    const dataSelect = await fetchDynamicAPI("getPlanOptionByPlanId", { PlanId: PlanId })
+
+    const html = dataSelect.map(x => {
+        return `
+            <option value="${x.Id}">${x.OptionName}</option>
+        `
+    }).join("")
+
+    // console.log(html)
+
+    $("#planOption").html(`<option value="1" selected disabled hidden>Choose here</option>` + html)
+
+}
+var planDetailData;
+async function getPlanDetail(elem) {
+    $("#callCharge").hide()
+    $("#callChargeDetail").html('')
+
+
+    connectOption = parseInt(elem.value)
+
+    const data = await fetchDynamicAPI("getPlanDetailByPlanOptionId", { PlanOptionId: parseInt(elem.value) })
+
+    const html = data.map(x => {
+        return ` <option value="${x.Id}">${x.Description}</option>`
+
+    }).join("")
+    // console.log(html);
+    planDetailData = data
+
+    $("#planDetail").removeAttr("disabled")
+    $("#planDetail").html(`<option value="1" selected disabled hidden>Choose here</option>` + html)
+
+}
+
+
+function onSelectPlanDetail(elem) {
+
+    planDetailData.map(x => {
+        if (x.Id == elem.value) {
+            if (x.CallCharges !== null) {
+                $("#callCharge").show()
+                $("#callChargeDetail").html(x.CallCharges)
+            }
+
+        }
+    })
+
+
 }

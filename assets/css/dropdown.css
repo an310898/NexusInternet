@@ -1,0 +1,22 @@
+.custom-select {
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  appearance: none;
+  height: 57px;
+  padding: 10px 38px 10px 16px;
+  transition: border-color 0.1s ease-in-out, box-shadow 0.1s ease-in-out;
+  border: 1px solid #ddd;
+  border-radius: 3px;
+}
+.custom-select:hover {
+  border: 1px solid #999;
+}
+.custom-select:focus {
+  border: 1px solid #999;
+  box-shadow: 0 3px 5px 0 rgba(0, 0, 0, 0.2);
+  outline: none;
+}
+/* remove default arrow in IE */
+select::-ms-expand {
+  display: none;
+}
