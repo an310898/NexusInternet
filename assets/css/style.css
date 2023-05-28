@@ -7787,3 +7787,7 @@ del {
 }
 
 /*# sourceMappingURL=style.css.map */
+
+* {
+  scroll-behavior: smooth;
+}

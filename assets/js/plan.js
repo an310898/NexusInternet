@@ -1,4 +1,5 @@
 var connectType = 0, connectOption = 0, connectDetail = 0, productId = 0;
+var planDetailData, productForPlan;
 
 document.querySelector("#formCheckZip").addEventListener("click", function (event) {
     event.preventDefault()
@@ -60,7 +61,7 @@ async function getAllPlan() {
             currency: 'USD',
         })
         return `
-             <div class="col-xl-4 col-lg-4 col-md-6 col-sm-10">
+                <div class="col-xl-4 col-lg-4 col-md-6 col-sm-10">
                     <div class="single-card text-center mb-30">
                         <div class="card-top">
                             <p>Single Package</p>
@@ -91,7 +92,7 @@ getAllPlan();
 async function selectPlan(PlanId) {
     const connectionTypeCharge = $(`[data-plan-id-${PlanId}]`).text()
     const taxStandard = connectionTypeCharge * 12.5 / 100
-
+    $('#productChoosePlan').html('')
     $("#choosePlanBlock").hide()
     $("#choosePlanOption").show()
     connectType = PlanId
@@ -100,6 +101,15 @@ async function selectPlan(PlanId) {
     $("#oneTimeTotal").text(parseFloat(connectionTypeCharge) + parseFloat(taxStandard))
 
     const dataSelect = await fetchDynamicAPI("getPlanOptionByPlanId", { PlanId: PlanId })
+    productForPlan = await fetchDynamicAPI("getProductForPlan", { PlanId: PlanId })
+
+    // console.log(productForPlan);
+
+    const htmlOptionProduct = productForPlan.map(x => {
+        return `
+            <option value="${x.Id}">${x.ProductName}</option>
+        `
+    })
 
     const html = dataSelect.map(x => {
         return `
@@ -109,10 +119,10 @@ async function selectPlan(PlanId) {
 
     // console.log(html)
 
-    $("#planOption").html(`<option value="1" selected disabled hidden>Choose here</option>` + html)
 
+    $("#planOption").html(`<option value="1" selected disabled hidden>Choose here</option>` + html)
+    $("#ProductPlan").html(`<option value="0" selected>I have for my own</option>` + htmlOptionProduct)
 }
-var planDetailData;
 async function getPlanDetail(elem) {
     $("#callCharge").hide()
     $("#callChargeDetail").html('')
@@ -137,15 +147,59 @@ async function getPlanDetail(elem) {
 
 function onSelectPlanDetail(elem) {
 
-    planDetailData.map(x => {
+    const html = planDetailData.map(x => {
         if (x.Id == elem.value) {
+            connectDetail = x.Id
             if (x.CallCharges !== null) {
                 $("#callCharge").show()
                 $("#callChargeDetail").html(x.CallCharges)
             }
-
+            const priceMonthly = x.Price
+            const taxPriceMonthly = x.Price * 12.5 / 100
+            $("#priceMonthly").text(priceMonthly.toFixed(2))
+            $("#taxPriceMonthly").text(taxPriceMonthly.toFixed(2))
+            $("#monthlyTotal").text(priceMonthly + taxPriceMonthly)
         }
     })
 
+    $("#monthlyCharge").html(html)
+}
+
+function onSelectProduct(elem) {
+
+    let oneTimeTotal = $("#oneTimeTotal").text();
+    productId = parseInt(elem.value)
+
+    if (productId === 0) {
+        $("#productPrice").text('0.00')
+        console.log();
+        $("#oneTimeTotal").text(parseFloat($('#standardInstall').text()) + parseFloat($("#standardInstallTax").text()))
+        $('#productChoosePlan').html('')
+        return;
+    }
+
+    for (let i = 0; i < productForPlan.length; i++) {
+        if (parseInt(elem.value) === productForPlan[i].Id) {
+            $('#productChoosePlan').html(`<div class="col-lg-4 text-center">
+                                                    <img style="object-fit: cover;max-width:200px;max-height: 200px;" src="${productForPlan[i].ProductImageUrl}" alt="">
+                                                </div>
+                                                <div class="col-lg-8">
+                                                    <p>${productForPlan[i].Description}</p>
+                                                </div>`)
+            $("#productPrice").text(productForPlan[i].Price)
+
+            $("#oneTimeTotal").text(parseFloat(oneTimeTotal) + productForPlan[i].Price)
+
+
+
+            break;
+        }
+    }
+
+}
+
+
+function goTocheckOut() {
+    console.log(`connectType: ${connectType}, connectOption: ${connectOption}, connectDetail: ${connectDetail}, productId: ${productId}`)
 
 }

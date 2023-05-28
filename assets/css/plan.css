@@ -46,3 +46,8 @@
 #checkZipCode {
   background-image: url(../img/gallery/section_bg01.png);
 }
+
+#choosePlanOption .col-lg-8,
+#choosePlanOption .col-lg-4 {
+  padding: 0;
+}

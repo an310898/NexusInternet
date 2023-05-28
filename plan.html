@@ -163,42 +163,58 @@
                             </div>
                         </div>
                     </div>
-                    <div class="row mt-50" id="choosePlanOption" style="display:none;">
-                        <div class="col-lg-8 " style="background-color: rgb(241,89,66)">
+                    <div class="row mt-50" id="choosePlanOption" style="display:flex;">
+                        <div class="col-lg-8 " style="background-color: rgb(241,89,66); padding-left: unset;padding-right: unset;">
                             <div class="text-center">
                                 <div class="pt-20 pb-20 " style="height: 73px;color: #fff;font-weight: 600;font-size: 20px;">Choose your plan</div>
                             </div>
-                            <form class="chargesContainer ">
-                                <div class="charges-align">
-                                    <div>
-                                        <label for="planOption">Plan Option:</label>
-                                        <div class="form-select">
-                                            <select id="planOption" class="custom-select" onchange="getPlanDetail(this)">
-                                                <option value="1" selected disabled hidden>Choose here</option>
-                                            </select>
-                                        </div>
-                                    </div>
-                                    <div class="mt-30 mb-30">
-                                        <label for="planDetail">Plan Detail:</label>
-                                        <div class="form-select">
-                                            <select id="planDetail" class="custom-select" disabled onchange="onSelectPlanDetail(this)">
-                                                <option value=" 1" selected disabled hidden>Choose here</option>
-                                            </select>
-
-                                        </div>
-                                    </div>
-                                    <div class="" id="callCharge" style="display:none">
-                                        <label for="callChargeDetail">Call Charge detail:</label>
+                            <div style="padding-bottom: 40px;">
+                                <form class="chargesContainer ">
+                                    <div class="charges-align">
                                         <div>
-                                            <p id="callChargeDetail"></p>
+                                            <label for="planOption">Plan Option:</label>
+                                            <div class="form-select">
+                                                <select id="planOption" class="custom-select" onchange="getPlanDetail(this)">
+                                                    <option value="1" selected disabled hidden>Choose here</option>
+                                                </select>
+                                            </div>
+                                        </div>
+                                        <div class="mt-30 mb-30">
+                                            <label for="planDetail">Plan Detail:</label>
+                                            <div class="form-select">
+                                                <select id="planDetail" class="custom-select" disabled onchange="onSelectPlanDetail(this)">
+                                                    <option value=" 1" selected disabled hidden>Choose here</option>
+                                                </select>
+
+                                            </div>
+                                        </div>
+                                        <div class="" id="callCharge" style="display:none">
+                                            <label for="callChargeDetail">Call Charge detail:</label>
+                                            <div>
+                                                <p id="callChargeDetail"></p>
+                                            </div>
+                                        </div>
+                                        <div class="mt-30 mb-30">
+                                            <label for="ProductPlan">Product:</label>
+                                            <div class="form-select">
+                                                <select id="ProductPlan" class="custom-select" onchange="onSelectProduct(this)">
+                                                </select>
+
+                                            </div>
+                                            <div class="pt-50 row" id="productChoosePlan">
+
+                                            </div>
+
                                         </div>
                                     </div>
-                                </div>
 
-                            </form>
+                                </form>
+
+                            </div>
+
                         </div>
                         <div class="col-lg-4 ">
-                            <div style="background: rgb(241,89,66); background: linear-gradient(90deg, rgba(241,89,66,1) 0%, rgba(203,7,7,1) 48%);">
+                            <div style="background: rgb(241,89,66);height: 100%; background: linear-gradient(90deg, rgba(241,89,66,1) 0%, rgba(203,7,7,1) 48%);">
                                 <div class="text-center" style="padding: 20px 0;">
                                     <div class="cart-icon">
                                     </div>
@@ -210,6 +226,11 @@
                                                 Charges:</strong></p>
                                         <div class="items-container" style="display: block;">
                                             <p class="line-height"><span>Standard Install:</span><span class="float-right">$<span id="standardInstall">0.00</span></span></p>
+                                            <p class="w-100  justify-content-between align-items-end line-height">
+                                                <span class="w-75" style="word-break: break-word;"> Premium Modem
+                                                    Lease:
+                                                </span><span class="float-right">$<span id="productPrice">0.00</span></span>
+                                            </p>
                                             <div class="fee-tax">
                                                 <span>
                                                     Fees &amp; Taxes:
@@ -221,44 +242,39 @@
                                         </div>
                                         <hr>
                                         <p><span class="otc font-weight-bold vib-blue f-black-hsix"> One-Time
-                                                Total: </span><span class="float-right total-cost1"> $<span id="oneTimeTotal">0</span> </span></p>
+                                                Total: </span><span class="float-right total-cost1"> $<span id="oneTimeTotal">0.00</span> </span></p>
                                     </div>
-                                    <div class="monthly charges-align margin-top monthly">
-                                        <p id="monthlyCharge" class="text-center"><strong class="vib-blue">Monthly
+                                    <div class="monthly charges-align margin-top ">
+                                        <p class="text-center"><strong class="vib-blue">Monthly
                                                 Charges:
                                             </strong></p>
                                         <div class="items-container">
-                                            <p class="line-height"><span><span class="dispaly_hsix">Internet</span> Up
-                                                    to 15 Mbps:</span><span class="float-right -text--right">$0</span>
+                                            <p class="line-height"><span><span class="dispaly_hsix">Monthly Charge</span></span><span class="float-right -text--right">$<span id="priceMonthly">0.00</span></span>
                                             </p>
-                                            <p class="w-100 d-flex justify-content-between align-items-end line-height">
-                                                <span class="-w--75" style="word-break: break-word;"> Premium Modem
-                                                    Lease:
-                                                </span><span class="float-right">$0.00</span>
-                                            </p>
-                                            <p class="d-flex justify-content-between align-items-end line-height">
+
+                                            <!-- <p class=" justify-content-between align-items-end line-height">
                                                 <span class="-w--75" style="word-break: break-word;"> Secure WiFi:
                                                 </span><span class="float-right">Included </span>
-                                            </p>
+                                            </p> -->
 
                                             <div class="fee-tax">
                                                 <span>
                                                     Fees &amp; Taxes:
                                                 </span>
                                                 <span style="float:right">
-                                                    <div>$0.00*</div>
+                                                    <div>$<span id="taxPriceMonthly">0.00</span>*</div>
                                                 </span>
                                             </div>
                                         </div>
                                         <hr>
                                         <p><span class=" font-weight-bold vib-blue f-black-hsix"> Monthly Total:
-                                            </span><span class="float-right total-cost1"> $0.00 </span></p>
+                                            </span><span class="float-right total-cost1" id="monthlyTotal"> $0.00 </span></p>
                                     </div>
                                 </div>
 
                                 <!-- End card charge -->
                                 <div class="text-center" style="padding: 10px 0 ">
-                                    <button class="genric-btn default radius">Continue</button>
+                                    <button class="genric-btn default radius" onclick="goTocheckOut()">Continue</button>
                                 </div>
                             </div>
                         </div>
