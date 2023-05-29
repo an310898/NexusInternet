@@ -51,3 +51,8 @@
 #choosePlanOption .col-lg-4 {
   padding: 0;
 }
+
+sup {
+  vertical-align: super;
+  font-size: x-small;
+}
