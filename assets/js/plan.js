@@ -1,12 +1,20 @@
 var connectType = 0, connectOption = 0, connectDetail = 0, productId = 0;
 var planDetailData, productForPlan;
 
+let listAvaiableCity;
+getAvailableCity()
+async function getAvailableCity() {
+    listAvaiableCity = await fetchDynamicAPI("getAvailableCity", {})
+
+    console.log(listAvaiableCity);
+}
+
 document.querySelector("#formCheckZip").addEventListener("click", function (event) {
     event.preventDefault()
 })
 
 async function checkAvailableZipCode() {
-
+    returnChoosePlanDetail()
     resetPlanAndCharge()
     const zipCode = $("#zipCode").val().trim()
 
@@ -19,7 +27,7 @@ async function checkAvailableZipCode() {
         return
     }
 
-    const data = await fetchDynamicAPI("checkAvailableZipCode", { ZipCode: zipCode })
+    const data = await fetchDynamicAPI("checkAvailableZipCode", { ZipOrCityName: zipCode })
     if (parseInt(data[0].result) === 1) {
         $("#alertAvailable").show()
         $("#choosePlanBlock").show()
@@ -129,7 +137,9 @@ async function selectPlan(PlanId) {
 async function getPlanDetail(elem) {
     $("#callCharge").hide()
     $("#callChargeDetail").html('')
-
+    $("#priceMonthly").text('0.00')
+    $("#taxPriceMonthly").text('0.00')
+    $("#monthlyTotal").text('0.00')
 
     connectOption = parseInt(elem.value)
     connectDetail = 0
@@ -159,9 +169,9 @@ function onSelectPlanDetail(elem) {
             }
             const priceMonthly = planDetailData[i].Price
             const taxPriceMonthly = planDetailData[i].Price * 12.5 / 100
-            $("#priceMonthly").text(priceMonthly.toFixed(2))
-            $("#taxPriceMonthly").text(taxPriceMonthly.toFixed(2))
-            $("#monthlyTotal").text(priceMonthly + taxPriceMonthly)
+            $("#priceMonthly").text(parseFloat(priceMonthly))
+            $("#taxPriceMonthly").text(parseFloat(taxPriceMonthly))
+            $("#monthlyTotal").text(parseFloat(priceMonthly + taxPriceMonthly))
             break;
         }
     }
@@ -217,8 +227,11 @@ function goTocheckOut() {
         return
     }
 
+    $('#choosePlan').hide()
+    $('#fillInfo').show()
+    $('#btnGoCheckOut').addClass('d-none')
+    $('#btnPlaceOrder').removeClass('d-none')
 
-    console.log('ok tiep tuc')
 }
 
 function validatePlan() {
@@ -231,6 +244,7 @@ function validatePlan() {
 
 }
 function resetPlanAndCharge() {
+
     $("#callCharge").hide()
     $("#callChargeDetail").html('')
     $('#productPrice').text('0.00')
@@ -248,4 +262,15 @@ function returnChoosePlan() {
     $('#planDetail').html(`<option value="0" selected disabled hidden>Choose here</option>`)
     $('#planDetail').attr('disabled', 'true')
     resetPlanAndCharge()
+}
+
+function returnChoosePlanDetail() {
+    $('#choosePlan').show()
+    $('#fillInfo').hide()
+    $('#btnGoCheckOut').removeClass('d-none')
+    $('#btnPlaceOrder').addClass('d-none')
+}
+
+function placeOrder() {
+    console.log('place order');
 }

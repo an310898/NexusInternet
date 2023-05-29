@@ -164,7 +164,7 @@
                         </div>
                     </div>
                     <div class="row mt-50" id="choosePlanOption" style="display:flex;">
-                        <div class="col-lg-8 " style="background-color: rgb(241,89,66); padding-left: unset;padding-right: unset;display:none">
+                        <div class="col-lg-8 " id="choosePlan" style="background-color: rgb(241,89,66); padding-left: unset;padding-right: unset;">
                             <div style="position: absolute;top:24px;left:20px;cursor: pointer;" onclick="returnChoosePlan()"><i class="fas fa-arrow-left" style="color: #fff;font-size: 18px;"></i></div>
                             <div class="text-center">
                                 <div class="pt-20 pb-20 " style="height: 73px;color: #fff;font-weight: 600;font-size: 20px;">Choose your plan</div>
@@ -196,7 +196,7 @@
                                             </div>
                                         </div>
                                         <div class="mt-30 mb-30">
-                                            <label for="ProductPlan">Product:</label>
+                                            <label for="ProductPlan">Product with your plan:</label>
                                             <div class="form-select">
                                                 <select id="ProductPlan" class="custom-select" onchange="onSelectProduct(this)">
                                                 </select>
@@ -214,7 +214,7 @@
                             </div>
 
                         </div>
-                        <div class="col-lg-8 " style="background-color: rgb(241,89,66); padding-left: unset;padding-right: unset;">
+                        <div class="col-lg-8 " id="fillInfo" style="background-color: rgb(241,89,66); padding-left: unset;padding-right: unset;display:block">
                             <div style="position: absolute;top:24px;left:20px;cursor: pointer;" onclick="returnChoosePlanDetail()"><i class="fas fa-arrow-left" style="color: #fff;font-size: 18px;"></i></div>
                             <div class="text-center">
                                 <div class="pt-20 pb-20 " style="height: 73px;color: #fff;font-weight: 600;font-size: 20px;">Fill your informationn</div>
@@ -223,40 +223,28 @@
                                 <form class="chargesContainer ">
                                     <div class="charges-align">
                                         <div>
-                                            <label for="planOption">Plan Option:</label>
-                                            <div class="form-select">
-                                                <select id="planOption" class="custom-select" onchange="getPlanDetail(this)">
-                                                    <option value="1" selected disabled hidden>Choose here</option>
+                                            <div class="mt-10">
+                                                <input type="text" name="first_name" placeholder="First Name" class="single-input">
+                                            </div>
+                                            <div class="mt-10">
+                                                <input type="text" name="last_name" placeholder="Last Name" class="single-input">
+                                            </div>
+                                            <div class="mt-10">
+                                                <input type="email" name="email" placeholder="Email" class="single-input">
+                                            </div>
+                                            <div class="mt-10">
+                                                <input type="text" name="phone" placeholder="Phone Number" class="single-input">
+                                            </div>
+                                            <div class="mt-10">
+                                                <input type="text" name="Address" placeholder="Address" class="single-input">
+                                            </div>
+                                            <div class="form-select mt-10">
+                                                <select id="customerCity" class="custom-select" onchange="getPlanDetail(this)">
+                                                    <option value="1" selected disabled hidden>Choose your city</option>
                                                 </select>
                                             </div>
                                         </div>
-                                        <div class="mt-30 mb-30">
-                                            <label for="planDetail">Plan Detail:</label>
-                                            <div class="form-select">
-                                                <select id="planDetail" class="custom-select" disabled onchange="onSelectPlanDetail(this)">
-                                                    <option value=" 1" selected disabled hidden>Choose here</option>
-                                                </select>
 
-                                            </div>
-                                        </div>
-                                        <div class="" id="callCharge" style="display:none">
-                                            <label for="callChargeDetail">Call Charge detail:</label>
-                                            <div>
-                                                <p id="callChargeDetail"></p>
-                                            </div>
-                                        </div>
-                                        <div class="mt-30 mb-30">
-                                            <label for="ProductPlan">Product:</label>
-                                            <div class="form-select">
-                                                <select id="ProductPlan" class="custom-select" onchange="onSelectProduct(this)">
-                                                </select>
-
-                                            </div>
-                                            <div class="pt-50 row" id="productChoosePlan">
-
-                                            </div>
-
-                                        </div>
                                     </div>
 
                                 </form>
@@ -325,6 +313,8 @@
                                 <!-- End card charge -->
                                 <div class="text-center" style="padding: 10px 0 ">
                                     <button id="btnGoCheckOut" class="genric-btn default radius disable" onclick="goTocheckOut()">Continue</button>
+                                    <button id="btnPlaceOrder" class="genric-btn default radius disable d-none" onclick="placeOrder()">Place Order</button>
+
                                 </div>
                             </div>
                         </div>
