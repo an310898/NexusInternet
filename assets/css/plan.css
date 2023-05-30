@@ -63,3 +63,7 @@ input.single-input {
   height: 57px;
   padding: 10px 38px 10px 16px;
 }
+
+input.single-input.single-input-alert {
+  border: 1px solid red;
+}

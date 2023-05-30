@@ -163,7 +163,7 @@
                             </div>
                         </div>
                     </div>
-                    <div class="row mt-50" id="choosePlanOption" style="display:flex;">
+                    <div class="row mt-50" id="choosePlanOption" style="display:none;">
                         <div class="col-lg-8 " id="choosePlan" style="background-color: rgb(241,89,66); padding-left: unset;padding-right: unset;">
                             <div style="position: absolute;top:24px;left:20px;cursor: pointer;" onclick="returnChoosePlan()"><i class="fas fa-arrow-left" style="color: #fff;font-size: 18px;"></i></div>
                             <div class="text-center">
@@ -214,7 +214,7 @@
                             </div>
 
                         </div>
-                        <div class="col-lg-8 " id="fillInfo" style="background-color: rgb(241,89,66); padding-left: unset;padding-right: unset;display:block">
+                        <div class="col-lg-8 " id="fillInfo" style="background-color: rgb(241,89,66); padding-left: unset;padding-right: unset;display:none">
                             <div style="position: absolute;top:24px;left:20px;cursor: pointer;" onclick="returnChoosePlanDetail()"><i class="fas fa-arrow-left" style="color: #fff;font-size: 18px;"></i></div>
                             <div class="text-center">
                                 <div class="pt-20 pb-20 " style="height: 73px;color: #fff;font-weight: 600;font-size: 20px;">Fill your informationn</div>
@@ -224,22 +224,22 @@
                                     <div class="charges-align">
                                         <div>
                                             <div class="mt-10">
-                                                <input type="text" name="first_name" placeholder="First Name" class="single-input">
+                                                <input type="text" name="firstName" id="firstName" placeholder="First Name" class="single-input">
                                             </div>
                                             <div class="mt-10">
-                                                <input type="text" name="last_name" placeholder="Last Name" class="single-input">
+                                                <input type="text" name="lastName" id="lastName" placeholder="Last Name" class="single-input">
                                             </div>
                                             <div class="mt-10">
-                                                <input type="email" name="email" placeholder="Email" class="single-input">
+                                                <input type="email" name="email" id="email" placeholder="Email" class="single-input">
                                             </div>
                                             <div class="mt-10">
-                                                <input type="text" name="phone" placeholder="Phone Number" class="single-input">
+                                                <input type="tel" onkeydown="return isNumberKey(event)" maxlength="10" name="phone" id="phone" placeholder="Phone Number" class="single-input">
                                             </div>
                                             <div class="mt-10">
-                                                <input type="text" name="Address" placeholder="Address" class="single-input">
+                                                <input type="text" name="address" id="address" placeholder="Address" class="single-input">
                                             </div>
                                             <div class="form-select mt-10">
-                                                <select id="customerCity" class="custom-select" onchange="getPlanDetail(this)">
+                                                <select id="customerCity" class="custom-select">
                                                     <option value="1" selected disabled hidden>Choose your city</option>
                                                 </select>
                                             </div>
@@ -312,8 +312,8 @@
 
                                 <!-- End card charge -->
                                 <div class="text-center" style="padding: 10px 0 ">
-                                    <button id="btnGoCheckOut" class="genric-btn default radius disable" onclick="goTocheckOut()">Continue</button>
-                                    <button id="btnPlaceOrder" class="genric-btn default radius disable d-none" onclick="placeOrder()">Place Order</button>
+                                    <button id="btnGoCheckOut" class="genric-btn default radius disable d-none" onclick="goTocheckOut()">Continue</button>
+                                    <button id="btnPlaceOrder" class="genric-btn default radius disable " onclick="placeOrder()">Place Order</button>
 
                                 </div>
                             </div>

@@ -2,21 +2,44 @@ var connectType = 0, connectOption = 0, connectDetail = 0, productId = 0;
 var planDetailData, productForPlan;
 
 let listAvaiableCity;
-getAvailableCity()
+
+
+const urlParams = new URLSearchParams(window.location.search);
+console.log();
+
+initFn()
+function initFn() {
+    $('#zipCode').val(urlParams.get('zipcode'))
+    if (urlParams.get('zipcode').trim().length > 0) {
+        checkAvailableZipCode(urlParams.get('zipcode'))
+    }
+    getAllPlan();
+    getAvailableCity()
+
+}
+
+
 async function getAvailableCity() {
     listAvaiableCity = await fetchDynamicAPI("getAvailableCity", {})
 
-    console.log(listAvaiableCity);
+    const htmlCityOption = listAvaiableCity.map(x => {
+        return `
+            <option value="${x.Id}">${x.Name}</option>
+        `
+    }).join('')
+
+    $('#customerCity').html('<option value="0" selected="" disabled="" hidden="">Choose your city</option>' + htmlCityOption)
+
 }
 
 document.querySelector("#formCheckZip").addEventListener("click", function (event) {
     event.preventDefault()
 })
 
-async function checkAvailableZipCode() {
+async function checkAvailableZipCode(zipParam) {
     returnChoosePlanDetail()
     resetPlanAndCharge()
-    const zipCode = $("#zipCode").val().trim()
+    const zipCode = zipParam || $("#zipCode").val().trim()
 
     if (zipCode.length === 0) {
         $("#alertAvailable").show()
@@ -95,7 +118,6 @@ async function getAllPlan() {
 
     $("#packagePlan").html(htmlData)
 }
-getAllPlan();
 
 async function selectPlan(PlanId) {
     const connectionTypeCharge = $(`[data-plan-id-${PlanId}]`).text()
@@ -271,6 +293,54 @@ function returnChoosePlanDetail() {
     $('#btnPlaceOrder').addClass('d-none')
 }
 
-function placeOrder() {
-    console.log('place order');
+async function placeOrder() {
+    const firstName = $('#firstName').val().trim() || ''
+    const lastName = $('#lastName').val().trim() || ''
+    const email = $('#email').val().trim() || ''
+    const phone = $('#phone').val().trim() || ''
+    const address = $('#address').val().trim() || ''
+    const customerCity = $('#customerCity').val() || ''
+
+
+    console.log(firstName, lastName, email, phone, address, customerCity, connectType, connectOption, connectDetail, productId);
+
+    if (firstName.length === 0 || lastName.length === 0 || !(isValidEmail(email)) || phone.length < 10 || address.length === 0 || customerCity.length === 0) {
+        if (firstName.length === 0) {
+            $('#firstName').addClass('single-input-alert')
+        }
+        if (lastName.length === 0) {
+            $('#lastName').addClass('single-input-alert')
+        }
+        if (!isValidEmail(email)) {
+            $('#email').addClass('single-input-alert')
+        }
+        if (phone.length < 10) {
+            $('#phone').addClass('single-input-alert')
+        }
+        if (address.length === 0) {
+            $('#address').addClass('single-input-alert')
+        }
+        if (customerCity.length === 0) {
+            $('#customerCity').css('border', '1px solid red')
+        }
+        return
+    }
+
+    const data = await fetchDynamicAPI('addNewCustomer', { FirstName: firstName, LastName: lastName, Email: email, Phone: phone, Address: address, CityId: customerCity, PlanId: connectType, PlanOptionId: connectOption, PlanDetailId: connectDetail, ProductId: productId, })
+
+
+    if (data[0].CustomerId.length === 10) {
+        $('#choosePlanOption').hide();
+        $('#textAvailableArea').html(`<h2 style="font-size: 24px;">Order successful, your customer code is: ${data[0].CustomerId}.</h2>`)
+    }
+}
+
+function isNumberKey(evt) {
+    var charCode = evt.which ? evt.which : evt.keyCode;
+    if (charCode > 31 && (charCode < 48 || charCode > 57)) return false;
+    return true;
+}
+function isValidEmail(email) {
+    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    return emailRegex.test(email);
 }
