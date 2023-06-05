@@ -9,8 +9,9 @@ console.log();
 
 initFn()
 function initFn() {
-    $('#zipCode').val(urlParams.get('zipcode'))
-    if (urlParams.get('zipcode').trim().length > 0) {
+    const zipcodeParam = urlParams.get('zipcode') || ''
+    $('#zipCode').val(zipcodeParam)
+    if (zipcodeParam.length > 0) {
         checkAvailableZipCode(urlParams.get('zipcode'))
     }
     getAllPlan();
