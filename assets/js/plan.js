@@ -203,7 +203,8 @@ function onSelectPlanDetail(elem) {
 
 function onSelectProduct(elem) {
 
-    let oneTimeTotal = $("#oneTimeTotal").text();
+    let standardInstall = $("#standardInstall").text();
+    let taxStandInstall = parseFloat(standardInstall) * 12.5 / 100
     productId = parseInt(elem.value)
 
     if (productId === 0) {
@@ -224,7 +225,8 @@ function onSelectProduct(elem) {
                                                 </div>`)
             $("#productPrice").text(productForPlan[i].Price)
 
-            $("#oneTimeTotal").text(parseFloat(oneTimeTotal) + productForPlan[i].Price)
+
+            $("#oneTimeTotal").text(parseFloat(standardInstall) + productForPlan[i].Price + taxStandInstall)
 
 
 
@@ -303,7 +305,7 @@ async function placeOrder() {
     const customerCity = $('#customerCity').val() || ''
 
 
-    console.log(firstName, lastName, email, phone, address, customerCity, connectType, connectOption, connectDetail, productId);
+
 
     if (firstName.length === 0 || lastName.length === 0 || !(isValidEmail(email)) || phone.length < 10 || address.length === 0 || customerCity.length === 0) {
         if (firstName.length === 0) {
@@ -327,7 +329,11 @@ async function placeOrder() {
         return
     }
 
-    const data = await fetchDynamicAPI('addNewCustomer', { FirstName: firstName, LastName: lastName, Email: email, Phone: phone, Address: address, CityId: customerCity, PlanId: connectType, PlanOptionId: connectOption, PlanDetailId: connectDetail, ProductId: productId, })
+    const formData = { FirstName: firstName, LastName: lastName, Email: email, Phone: phone, Address: address, CityId: customerCity, PlanId: connectType, PlanOptionId: connectOption, PlanDetailId: connectDetail, ProductId: productId }
+
+    console.log(formData)
+
+    const data = await fetchDynamicAPI('addNewCustomer', formData)
 
 
     if (data[0].CustomerId.length === 10) {
