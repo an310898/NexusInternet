@@ -1,0 +1,16 @@
+div.form-group select {
+  padding: 0.8rem 0.75rem;
+  font-weight: 400;
+  color: #6e707e;
+  background-color: #fff;
+  background-clip: padding-box;
+  border: 1px solid #d1d3e2;
+  transition: border-color 0.15s ease-in-out, box-shadow 0.15s ease-in-out;
+  width: 100%;
+  font-size: 0.8rem;
+  border-radius: 10rem;
+}
+
+div.form-group select:focus-visible {
+  border: 1px solid #d1d3e2 !important;
+}
