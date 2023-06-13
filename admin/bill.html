@@ -294,8 +294,8 @@
                     <!-- DataTales Example -->
                     <div class="card shadow mb-4">
                         <div class="card-header py-3 d-flex justify-content-between align-items-center">
-                            <h6 class="m-0 font-weight-bold text-primary">Employee Table</h6>
-                            <button class="btn m-0 " data-toggle="modal" data-target="#createNewModal" style="line-height: 1.2;padding: 10px;border: 1px solid #e3e6f0;border-radius: 0;">Create new Employee</button>
+                            <h6 class="m-0 font-weight-bold text-primary">Bill Table</h6>
+
                             <!-- <a class="dropdown-item" href="#" data-toggle="modal" data-target="#logoutModal">
                                 <i class="fas fa-sign-out-alt fa-sm fa-fw mr-2 text-gray-400"></i>
                                 Logout
@@ -306,12 +306,14 @@
                                 <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
                                     <thead>
                                         <tr>
+                                            <th>ID</th>
                                             <th>Name</th>
-                                            <th>Role</th>
+                                            <th>Email</th>
                                             <th>Phone</th>
-                                            <th>Start date</th>
-                                            <th>Salary</th>
+                                            <th>Address</th>
+                                            <th>City</th>
                                             <th>State</th>
+                                            <th>Created Date</th>
                                             <th></th>
                                         </tr>
                                     </thead>
@@ -369,68 +371,14 @@
         </div>
     </div>
 
-    <div class="modal fade" id="createNewModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
-        <div class="modal-dialog" role="document">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <h5 class="modal-title" id="exampleModalLabel">Create new employee</h5>
-                    <button class="close" type="button" data-dismiss="modal" aria-label="Close">
-                        <span aria-hidden="true">x</span>
-                    </button>
-                </div>
-                <form action="#" class="user">
-                    <div class="modal-body">
-                        <div class="form-group row">
-                            <div class="col-sm-6 mb-3 mb-sm-0">
-                                <input type="text" class="form-control form-control-user" id="FirstName" placeholder="First Name">
-                            </div>
-                            <div class="col-sm-6">
-                                <input type="text" class="form-control form-control-user" id="LastName" placeholder="Last Name">
-                            </div>
-                        </div>
-                        <div class="form-group">
-                            <input type="email" class="form-control form-control-user" id="Email" placeholder="Email Address">
-                        </div>
-                        <div class="form-group">
-                            <input type="tel" class="form-control form-control-user" id="Phone" placeholder="Phone">
-                        </div>
-                        <div class="form-group">
-                            <input type="date" class="form-control form-control-user" id="BirthDay" placeholder="BirthDay">
-                        </div>
-                        <div class="form-group">
-                            <input type="text" class="form-control form-control-user" id="UserName" placeholder="User Name">
-                        </div>
-                        <div class="form-group">
-                            <input type="password" class="form-control form-control-user" id="Password" placeholder="Password">
-                        </div>
-                        <div class="form-group">
-                            <input type="text" class="form-control form-control-user" id="Salary" placeholder="Salary">
-                        </div>
-                        <div class="form-group">
-                            <select name="Role" id="Role">
-                                <!-- <option value="1">Admin</option>
-                                <option value="2">Accountant</option>
-                                <option value="3">Technical</option>
-                                <option value="4">Retail Store</option> -->
-                            </select>
 
-                        </div>
-                    </div>
-                    <div class="modal-footer">
-                        <button class="btn btn-secondary" type="button" data-dismiss="modal">Cancel</button>
-                        <button class="btn btn-primary" type="submit" onclick="createNewEmp()">Create</button>
-                    </div>
-                </form>
-            </div>
-        </div>
-    </div>
 
 
     <div class="modal fade show" id="editModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
         <div class="modal-dialog" role="document">
             <div class="modal-content">
                 <div class="modal-header">
-                    <h5 class="modal-title" id="exampleModalLabel">Edit employee</h5>
+                    <h5 class="modal-title" id="exampleModalLabel">Edit Customer</h5>
                     <button class="close" type="button" data-dismiss="modal" aria-label="Close">
                         <span aria-hidden="true">x</span>
                     </button>
@@ -452,32 +400,20 @@
                             <input type="tel" class="form-control form-control-user" id="EditPhone" placeholder="Phone">
                         </div>
                         <div class="form-group">
-                            <input type="date" class="form-control form-control-user" id="EditBirthDay" placeholder="BirthDay">
+                            <input type="text" class="form-control form-control-user" id="EditAddress" placeholder="Address">
                         </div>
-                        <div class="form-group">
-                            <input type="text" class="form-control form-control-user" id="EditUserName" placeholder="User Name">
-                        </div>
-                        <div class="form-group">
-                            <input type="password" class="form-control form-control-user" id="EditPassword" placeholder="Password">
-                        </div>
-                        <div class="form-group">
-                            <input type="text" class="form-control form-control-user" id="EditSalary" placeholder="Salary">
-                        </div>
-                        <div class="form-group">
-                            <select name="Role" id="EditRole">
-                            </select>
 
-                        </div>
                         <div class="form-group">
                             <select name="State" id="EditState">
                                 <option value="Active">Active</option>
-                                <option value="Deactive">Deactive</option>
+                                <option value="Inactive">Inactive</option>
+                                <!-- <option value="Permanently Inactive">Permanently Inactive</option> -->
                             </select>
                         </div>
                     </div>
                     <div class="modal-footer">
                         <button class="btn btn-secondary" type="button" data-dismiss="modal">Cancel</button>
-                        <button class="btn btn-primary" id="btn-edit" type="submit" onclick="editEmp()">Edit</button>
+                        <button class="btn btn-primary" id="btn-edit" type="submit" onclick="">Edit</button>
                     </div>
                 </form>
             </div>
@@ -504,7 +440,7 @@
 
     <!-- Page level custom scripts -->
     <script src="js/fetch.js"></script>
-    <script src="js/employee.js"></script>
+    <script src="js/bill.js"></script>
 
 </body>
 
