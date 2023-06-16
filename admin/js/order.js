@@ -14,11 +14,13 @@ async function getOrderList() {
                                             <td>${x.OptionName}</td>
                                             <td>${x.Description}</td>
                                             <td>${x.ProductName}</td>
+                                            <td>${x.PaymentMethod}</td>
+                                            <td>${x.BillAmount}</td>
                                             <td>${formatDate}</td>
                                             <td>${x.OrderStatus}</td>
                                             <td style="display:flex;justify-content: space-around;width:50px">
+                                            ${x.OrderStatus !== 'Completed' ? `<i class="far fa-edit" data-toggle="modal" data-target="#orderStatusModal" style="cursor:pointer" onclick='showUpdateOrderModel("${x.CustomerID}","${x.OrderStatus}")'></i>` : `<i class="far fa-edit disabled" data-toggle="modal"  style="cursor:not-allowed")'></i>`}
                                             
-                                            <i class="far fa-edit" data-toggle="modal" data-target="#orderStatusModal" style="cursor:pointer" onclick='showUpdateOrderModel("${x.CustomerID}","${x.OrderStatus}")'></i>
 
                                             </td>
                                         </tr>`

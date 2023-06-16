@@ -117,6 +117,13 @@
                     <ul class="navbar-nav ml-auto">
 
 
+
+
+
+
+
+
+
                         <!-- Nav Item - User Information -->
                         <li class="nav-item dropdown no-arrow">
                             <a class="nav-link dropdown-toggle" href="#" id="userDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
@@ -148,26 +155,22 @@
                     <!-- DataTales Example -->
                     <div class="card shadow mb-4">
                         <div class="card-header py-3 d-flex justify-content-between align-items-center">
-                            <h6 class="m-0 font-weight-bold text-primary">Customer Table</h6>
+                            <h6 class="m-0 font-weight-bold text-primary">Product Table</h6>
+                            <button class="btn m-0 " data-toggle="modal" data-target="#createNewModal" style="line-height: 1.2;padding: 10px;border: 1px solid #e3e6f0;border-radius: 0;">Create new product</button>
 
-                            <!-- <a class="dropdown-item" href="#" data-toggle="modal" data-target="#logoutModal">
-                                <i class="fas fa-sign-out-alt fa-sm fa-fw mr-2 text-gray-400"></i>
-                                Logout
-                            </a> -->
                         </div>
                         <div class="card-body">
                             <div class="table-responsive">
                                 <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
                                     <thead>
                                         <tr>
-                                            <th>ID</th>
                                             <th>Name</th>
-                                            <th>Email</th>
-                                            <th>Phone</th>
-                                            <th>Address</th>
-                                            <th>City</th>
-                                            <th>State</th>
-                                            <th>Created Date</th>
+                                            <th>Image</th>
+                                            <th>Description</th>
+                                            <th>Price</th>
+                                            <th>Manufacturer</th>
+                                            <th>Quantity</th>
+                                            <th>Connection Type</th>
                                             <th></th>
                                         </tr>
                                     </thead>
@@ -225,91 +228,97 @@
         </div>
     </div>
 
-    <div class="modal fade show" id="cusPlanModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+
+
+
+    <div class="modal fade show" id="createNewModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
         <div class="modal-dialog" role="document">
             <div class="modal-content">
                 <div class="modal-header">
-                    <h5 class="modal-title" id="exampleModalLabel">Customer plan</h5>
+                    <h5 class="modal-title" id="exampleModalLabel">Create Product</h5>
                     <button class="close" type="button" data-dismiss="modal" aria-label="Close">
                         <span aria-hidden="true">x</span>
                     </button>
                 </div>
-                <form action="#" id="formPlan" class="user">
+                <form action="#" id="formUpdateProduct" method="post" class="user">
                     <div class="modal-body">
-                        <div class="form-group mb-20">
-                            <select name="Plan" id="Plan" disabled>
-
-                            </select>
-
+                        <div class="form-group">
+                            <input type="text" class="form-control form-control-user" id="ProductName" placeholder="Product Name">
                         </div>
                         <div class="form-group">
-                            <select name="Plan Option" id="planOption" onchange="getPlanDetail()">
-
-                            </select>
-
+                            <input type="text" class="form-control form-control-user" id="ImageURL" placeholder="Product Image URL">
                         </div>
                         <div class="form-group">
-                            <select name="Plan" id="PlanDetail">
+                            <input type="text" class="form-control form-control-user" id="Description" placeholder="Description">
+                        </div>
+                        <div class="form-group">
+                            <input type="text" class="form-control form-control-user" id="Price" placeholder="Price">
+                        </div>
+                        <div class="form-group">
+                            <input type="text" class="form-control form-control-user" id="Manufacturer" placeholder="Manufacturer">
+                        </div>
+                        <div class="form-group">
+                            <input type="number" class="form-control form-control-user" id="Quantity" placeholder="Quantity">
+                        </div>
+                        <div class="form-group">
+                            <select name="Connection Type" id="ConnectionType">
+
 
                             </select>
                         </div>
                     </div>
                     <div class="modal-footer">
                         <button class="btn btn-secondary" type="button" data-dismiss="modal">Cancel</button>
-                        <button class="btn btn-primary" id="btn-plan-edit" type="submit">Update plan</button>
+                        <button class="btn btn-primary" id="btn-create" type="submit" onclick="createProduct()">Create</button>
                     </div>
                 </form>
             </div>
         </div>
     </div>
-
-
-    <div class="modal fade show" id="editModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal fade show" id="updateProductModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
         <div class="modal-dialog" role="document">
             <div class="modal-content">
                 <div class="modal-header">
-                    <h5 class="modal-title" id="exampleModalLabel">Edit Customer</h5>
+                    <h5 class="modal-title" id="exampleModalLabel">Edit Product</h5>
                     <button class="close" type="button" data-dismiss="modal" aria-label="Close">
                         <span aria-hidden="true">x</span>
                     </button>
                 </div>
-                <form action="#" class="user">
+                <form action="#" id="formUpdateProduct" method="post" class="user">
                     <div class="modal-body">
-                        <div class="form-group row">
-                            <div class="col-sm-6 mb-3 mb-sm-0">
-                                <input type="text" class="form-control form-control-user" id="EditFirstName" placeholder="First Name">
-                            </div>
-                            <div class="col-sm-6">
-                                <input type="text" class="form-control form-control-user" id="EditLastName" placeholder="Last Name">
-                            </div>
+                        <div class="form-group">
+                            <input type="text" class="form-control form-control-user" id="EditProductName" placeholder="Product Name">
                         </div>
                         <div class="form-group">
-                            <input type="email" class="form-control form-control-user" id="EditEmail" placeholder="Email Address">
+                            <input type="text" class="form-control form-control-user" id="EditImageURL" placeholder="Product Image URL">
                         </div>
                         <div class="form-group">
-                            <input type="tel" class="form-control form-control-user" id="EditPhone" placeholder="Phone">
+                            <input type="text" class="form-control form-control-user" id="EditDescription" placeholder="Description">
                         </div>
                         <div class="form-group">
-                            <input type="text" class="form-control form-control-user" id="EditAddress" placeholder="Address">
+                            <input type="text" class="form-control form-control-user" id="EditPrice" placeholder="Price">
                         </div>
+                        <div class="form-group">
+                            <input type="text" class="form-control form-control-user" id="EditManufacturer" placeholder="Manufacturer">
+                        </div>
+                        <div class="form-group">
+                            <input type="number" class="form-control form-control-user" id="EditQuantity" placeholder="Quantity">
+                        </div>
+                        <div class="form-group">
+                            <select name="Connection Type" id="EditConnectionType">
 
-                        <div class="form-group">
-                            <select name="State" id="EditState">
-                                <option value="Active">Active</option>
-                                <option value="Inactive">Inactive</option>
-                                <!-- <option value="Permanently Inactive">Permanently Inactive</option> -->
+
                             </select>
                         </div>
                     </div>
                     <div class="modal-footer">
                         <button class="btn btn-secondary" type="button" data-dismiss="modal">Cancel</button>
-                        <button class="btn btn-primary" id="btn-edit" type="submit" onclick="">Edit</button>
+                        <button class="btn btn-primary" id="btn-edit-product" type="submit" onclick="">Edit</button>
                     </div>
                 </form>
             </div>
         </div>
     </div>
-
     <!-- Bootstrap core JavaScript-->
     <script src="vendor/jquery/jquery.min.js"></script>
     <script src="vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
@@ -332,7 +341,7 @@
     <script src="js/fetch.js"></script>
     <script src="js/cookie.js"></script>
     <script src="js/authenticate.js"></script>
-    <script src="js/customer.js"></script>
+    <script src="js/product.js"></script>
 
 </body>
 

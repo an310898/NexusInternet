@@ -1,22 +1,28 @@
 async function getBillList() {
-    const data = await fetchApi('Customers')
+    const data = await fetchDynamicAPI('getAllBill', {})
 
     const html = data.map(x => {
-        let joinDate = new Date(x.createdDate)
-        let formatDate = joinDate.toLocaleDateString('en-GB', { day: '2-digit', month: '2-digit', year: 'numeric' })
+        let BillingDate = new Date(x.BillingDate)
+        let formatBillingDate = BillingDate.toLocaleDateString('en-GB', { day: '2-digit', month: '2-digit', year: 'numeric' })
+        let paymentDate;
+        let formatpaymentDate = '';
+        if (x.PaymentDate.length > 1) {
+            paymentDate = new Date(x.PaymentDate)
+            formatpaymentDate = paymentDate.toLocaleDateString('en-GB', { day: '2-digit', month: '2-digit', year: 'numeric' })
+        }
+
+
         return ` <tr>
-                                            <td>${x.id}</td>
-                                            <td>${x.firstName + ' ' + x.lastName}</td>
-                                            <td>${x.email}</td>
-                                            <td>${x.phone}</td>
-                                            <td>${x.address}</td>
-                                            <td>${x.city.name}</td>
-                                            <td>${x.state}</td>
-                                            <td>${formatDate}</td>
-                                            <td style="display:flex;justify-content: space-around;width:50px">
-                                            <i class="fas fa-info-circle" data-toggle="modal" data-target="#cusPlanModal" style="cursor:pointer"  onclick='cusPlanDetail("${x.id}")'></i>
-                                            <i class="far fa-edit" data-toggle="modal" data-target="#editModal" style="cursor:pointer" onclick='editCustomer("${x.id}")'></i>
+                                            <td>${x.CustomerID}</td>
+                                            <td>${x.FirstName + ' ' + x.LastName}</td>
+                                            <td>${x.Phone}</td>
+                                            <td>${x.Address}</td>
+                                            <td>${x.BillAmount}</td>
+                                            <td>${formatBillingDate}</td>
+                                            <td>${formatpaymentDate}</td>
+                                            <td>${x.IsPaid}</td>
                                             
+
                                             </td>
                                         </tr>`
     }).join('')
@@ -24,3 +30,5 @@ async function getBillList() {
     $('#table-body').html(html)
     $('#dataTable').DataTable();
 }
+
+getBillList()

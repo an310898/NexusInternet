@@ -1,3 +1,24 @@
+async function getAvailableCity() {
+    listAvaiableCity = await fetchDynamicAPI("getAvailableCity", {});
+
+    const htmlCityOption = listAvaiableCity
+        .map(x => {
+            return `
+            <option value="${x.Id}">${x.Name}</option>
+        `;
+        })
+        .join("");
+
+    $("#City").html(
+        '<option value="0" selected="" disabled="" hidden="">Choose your city</option>' +
+        htmlCityOption
+    );
+    $("#EditCity").html(
+        '<option value="0" selected="" disabled="" hidden="">Choose your city</option>' +
+        htmlCityOption
+    );
+}
+
 async function getEmpList() {
     const data = await fetchApi('Employees')
 
@@ -33,8 +54,13 @@ async function getAllRole() {
 }
 
 $('document').ready(function () {
+    $('form').submit(function (e) {
+        e.preventDefault();
+        return false;
+    })
     getEmpList()
     getAllRole()
+    getAvailableCity()
 })
 
 
@@ -47,6 +73,7 @@ async function createNewEmp() {
     const userName = $('#UserName').val().trim();
     const password = $('#Password').val().trim();
     const salary = $('#Salary').val().trim();
+    const cityId = $('#City').val();
     const role = $('#Role').val();
 
 
@@ -62,7 +89,8 @@ async function createNewEmp() {
         salary: salary,
         roleId: role,
         dateOfBirth: birthDay,
-        state: 'Active'
+        cityId: cityId,
+        state: 'Active',
     }
 
     const result = await fetchApi('Employees', 'POST', formData)
@@ -78,6 +106,7 @@ async function editUserForm(EmpId) {
     $('#editModal').hide()
     const data = await fetchApi(`Employees/${EmpId}`)
 
+    console.log("🚀 ~ file: employee.js:109 ~ editUserForm ~ data:", data)
     const date = new Date(data.dateOfBirth)
 
     var dateFormat = date.getFullYear() + "-" + ((date.getMonth() + 1).length != 2 ? "0" + (date.getMonth() + 1) : (date.getMonth() + 1)) + "-" + (date.getDate() < 10 ? '0' + date.getDate() : date.getDate());
@@ -94,6 +123,7 @@ async function editUserForm(EmpId) {
     $('#EditPassword').val(`${data.password}`)
     $('#EditSalary').val(`${data.salary}`)
     $('#EditRole').val(`${data.roleId}`)
+    $('#EditCity').val(`${data.cityId}`)
     $('#EditState').val(`${data.state}`)
     $('#btn-edit').attr('onclick', `editEmp(${data.id})`)
     $('#editModal').show()
@@ -111,6 +141,7 @@ async function editEmp(empId) {
     const Password = $('#EditPassword').val()
     const Salary = $('#EditSalary').val()
     const Role = $('#EditRole').val()
+    const cityId = $('#EditCity').val()
     const State = $('#EditState').val()
 
     const formData = {
@@ -124,11 +155,12 @@ async function editEmp(empId) {
         salary: Salary,
         roleId: parseInt(Role),
         dateOfBirth: birthday,
+        cityId: cityId,
         state: State
     }
 
-    const res = await fetchApi(`Employees/${empId}`, "Put", formData)
-    if (res === 200) {
+    const res = await fetchDynamicAPI('editEmp', formData)
+    if (res[0].Result === 1) {
         alert('Update Success')
         getEmpList();
         $('#editModal').modal('hide')
