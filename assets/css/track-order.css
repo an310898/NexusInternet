@@ -1,0 +1,53 @@
+#btn-track {
+    padding: 13px 41px;
+    border-color: #072366;
+    color: #072366 !important;
+
+}
+
+#btn-track:hover {
+    background-color: #072366;
+    color: #fff !important;
+}
+
+#order-info .info-border-bottom {
+    border-bottom: 1px solid #e5e6e9;
+    color: #072366;
+}
+
+#order-info label {
+    margin-right: 5px;
+    margin-bottom: 0;
+}
+
+#order-info .form-group {
+    margin-bottom: 1.5rem;
+}
+
+.card-header-content {
+    align-items: center;
+    justify-content: space-between;
+}
+
+#accordionExample>div:last-child {
+    border-bottom: 1px solid rgba(0, 0, 0, .125) !important;
+}
+
+.form-group div div {
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+#accordionExample h2 button {
+    border: none;
+    background: none;
+    color: #072366;
+    padding: 14px 19px;
+    box-shadow: none;
+    text-decoration: none;
+}
+
+#accordionExample div.card-header.d-flex.card-header-content {
+    cursor: pointer;
+}
