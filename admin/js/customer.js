@@ -114,7 +114,7 @@ getAllPlan()
 
 async function cusPlanDetail(cusId) {
     const data = await fetchDynamicAPI(`getCustomerPlan`, { CustomerId: cusId })
-    console.log("🚀 ~ file: customer.js:110 ~ cusPlanDetail ~ data:", data)
+    // console.log("🚀 ~ file: customer.js:110 ~ cusPlanDetail ~ data:", data)
 
     $('#Plan').val(data[0].PlanId)
 
@@ -125,7 +125,7 @@ async function cusPlanDetail(cusId) {
             `
         }
     })
-    console.log("🚀 ~ file: customer.js:132 ~ htmlDetail ~ planDetail:", planDetail)
+    // console.log("🚀 ~ file: customer.js:132 ~ htmlDetail ~ planDetail:", planDetail)
 
     $('#planOption').html(htmlOption)
     $('#planOption').val(data[0].PlanOption)
@@ -154,7 +154,7 @@ async function updateCusPlan(cusId) {
         planOptionId: $("#planOption").val(),
         planDetailId: $("#PlanDetail").val()
     }
-    console.log("🚀 ~ file: customer.js:155 ~ updateCusPlan ~ formData:", formData)
+    // console.log("🚀 ~ file: customer.js:155 ~ updateCusPlan ~ formData:", formData)
 
     const res = await fetchDynamicAPI('updateCustomerPlan', formData)
     if (res[0].res === 1) {

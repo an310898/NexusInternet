@@ -1,6 +1,6 @@
 async function getOrderList() {
     const data = await fetchDynamicAPI('getCustomerOrderDetail', {})
-    console.log("🚀 ~ file: order.js:3 ~ getOrderList ~ data:", data)
+    // console.log("🚀 ~ file: order.js:3 ~ getOrderList ~ data:", data)
 
     const html = data.map(x => {
         let OrderDate = new Date(x.OrderDate)

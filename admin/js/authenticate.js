@@ -3,7 +3,7 @@ const token = getCookie('token')
 
 const href = window.location.href
 const paramWebPageUrl = href.substring(href.indexOf('admin/') + 6, href.indexOf('.html')).trim().replace('-', ' ')
-console.log("🚀 ~ file: authenticate.js:6 ~ paramWebPageUrl:", paramWebPageUrl)
+// console.log("🚀 ~ file: authenticate.js:6 ~ paramWebPageUrl:", paramWebPageUrl)
 
 const initListPermission = ["Employee", "Customer", "Bill", "Order", "Product", "Retail Store", "Available City", "Feedback"];
 

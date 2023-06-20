@@ -1,7 +1,7 @@
 
 async function getRetailStoreList() {
     const data = await fetchDynamicAPI('getAllRetailStore', {})
-    console.log("🚀 ~ file: product.js:3 ~ getProductList ~ data:", data)
+    // console.log("🚀 ~ file: product.js:3 ~ getProductList ~ data:", data)
 
     const html = data.map(x => {
 
@@ -93,7 +93,7 @@ async function createNew() {
         ManagerId: managerId,
     }
     const res = await fetchDynamicAPI('addNewStore', formData)
-    console.log("🚀 ~ file: retail-store.js:82 ~ createNew ~ res:", res)
+    // console.log("🚀 ~ file: retail-store.js:82 ~ createNew ~ res:", res)
 
     if (res[0].Result === 1) {
         alert('Create Success!')
@@ -105,7 +105,7 @@ async function createNew() {
 async function showUpdateModel(storeId) {
 
     const data = await fetchDynamicAPI('getStoreInfo', { StoreId: parseInt(storeId) })
-    console.log("🚀 ~ file: retail-store.js:105 ~ showUpdateModel ~ data:", data)
+    // console.log("🚀 ~ file: retail-store.js:105 ~ showUpdateModel ~ data:", data)
     $('#EditStoreName').val(data[0].StoreName)
     $('#EditAddress').val(data[0].Address)
     $('#EditHotline').val(data[0].Phone)
@@ -131,7 +131,7 @@ async function updateStore(storeId) {
         ManagerId: managerId,
     }
     const res = await fetchDynamicAPI('updateStore', formData)
-    console.log("🚀 ~ file: retail-store.js:82 ~ createNew ~ res:", res)
+    // console.log("🚀 ~ file: retail-store.js:82 ~ createNew ~ res:", res)
 
     if (res[0].Result === 1) {
         alert('Edit Success!')

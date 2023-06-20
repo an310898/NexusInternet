@@ -1,5 +1,6 @@
 async function getAllFeedback() {
     const data = await fetchDynamicAPI('getAllFeedback', {})
+    // console.log("🚀 ~ file: feedback.js:3 ~ getAllFeedback ~ data:", data)
 
     const html = data.map(x => {
         let createDate = new Date(x.CreatedDate)
@@ -26,6 +27,6 @@ async function getAllFeedback() {
 }
 
 $('document').ready(async function () {
-    await getAvailableCityList()
+    await getAllFeedback()
 
 })

@@ -108,14 +108,14 @@ async function editUserForm(EmpId) {
     $('#editModal').hide()
     const data = await fetchApi(`Employees/${EmpId}`)
 
-    console.log("🚀 ~ file: employee.js:109 ~ editUserForm ~ data:", data)
+    // console.log("🚀 ~ file: employee.js:109 ~ editUserForm ~ data:", data)
     const date = new Date(data.dateOfBirth)
 
     var dateFormat = date.getFullYear() + "-" + ((date.getMonth() + 1).length != 2 ? "0" + (date.getMonth() + 1) : (date.getMonth() + 1)) + "-" + (date.getDate() < 10 ? '0' + date.getDate() : date.getDate());
 
 
 
-    console.log(dateFormat);
+    // console.log(dateFormat);
     $('#EditFirstName').val(`${data.firstName}`)
     $('#EditLastName').val(`${data.lastName}`)
     $('#EditEmail').val(`${data.email}`)

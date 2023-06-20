@@ -14,7 +14,7 @@ async function getAllPlan() {
 
 async function getProductList() {
     const data = await fetchDynamicAPI('getAllProduct', {})
-    console.log("🚀 ~ file: product.js:3 ~ getProductList ~ data:", data)
+    // console.log("🚀 ~ file: product.js:3 ~ getProductList ~ data:", data)
 
     const html = data.map(x => {
 
@@ -53,7 +53,7 @@ $('document').ready(async function () {
 
 async function showUpdateProductModel(productId) {
     const data = await fetchDynamicAPI('getProductInfo', { ProductId: productId })
-    console.log("🚀 ~ file: product.js:36 ~ showUpdateProductModel ~ data:", data)
+    // console.log("🚀 ~ file: product.js:36 ~ showUpdateProductModel ~ data:", data)
 
     $('#EditProductName').val(data[0].ProductName)
     $("#EditImageURL").val((data[0].ProductImageUrl))
@@ -85,7 +85,7 @@ async function updateProduct(productId) {
         QuantityInStock: Quantity,
         ForPlan: ConnectionType
     }
-    console.log(formData);
+    // console.log(formData);
 
     const res = await fetchDynamicAPI('updateProduct', formData)
     if (res[0].Result === 1) {
@@ -116,11 +116,11 @@ async function createProduct() {
         QuantityInStock: parseInt(Quantity),
         ForPlan: parseInt(ConnectionType)
     }
-    console.log("🚀 ~ file: product.js:111 ~ createProduct ~ formData:", formData)
+    // console.log("🚀 ~ file: product.js:111 ~ createProduct ~ formData:", formData)
 
 
     const res = await fetchDynamicAPI('CreateProduct', formData)
-    console.log("🚀 ~ file: product.js:115 ~ createProduct ~ res:", res)
+    // console.log("🚀 ~ file: product.js:115 ~ createProduct ~ res:", res)
     if (res[0].Result === 1) {
         getProductList()
         alert('Create success!')

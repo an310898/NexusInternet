@@ -160,7 +160,7 @@ async function sendFeedback(orderId) {
     }
 
     const formData = { OrderId: orderId, Subject: subject, Comments: message }
-    console.log(formData);
+    // console.log(formData);
 
     const res = await fetchDynamicAPI('CustomerFeedbackByOrderId', formData)
     if (res[0].Result === 1) {

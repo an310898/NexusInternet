@@ -39,7 +39,7 @@ document.querySelector("form").addEventListener("click", function (event) {
     event.preventDefault()
 })
 function checkAvailableZipCode() {
-    console.log();
+
     if ($('#zipCodeInput').val().trim().length === 0) {
         alert('Input valid zipcode')
         return;

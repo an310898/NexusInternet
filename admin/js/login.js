@@ -46,7 +46,7 @@ $('document').ready(function () {
 
 async function checkToken() {
     const token = getCookie('token')
-    console.log("🚀 ~ file: login.js:49 ~ checkToken ~ token:", token)
+    // console.log("🚀 ~ file: login.js:49 ~ checkToken ~ token:", token)
 
     const res = await fetchDynamicAPI('checkToken', { Token: token })
     if (res.length === 1) {

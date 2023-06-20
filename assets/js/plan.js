@@ -7,7 +7,7 @@ var planDetailData, productForPlan;
 let listAvaiableCity;
 
 const urlParams = new URLSearchParams(window.location.search);
-console.log();
+
 
 initFn();
 function initFn() {
@@ -271,9 +271,9 @@ function goTocheckOut() {
     $("#planOption").css("border", "");
     $("#planDetail").css("border", "");
 
-    console.log(
-        `connectType: ${connectType}, connectOption: ${connectOption}, connectDetail: ${connectDetail}, productId: ${productId}`
-    );
+    // console.log(
+    //     `connectType: ${connectType}, connectOption: ${connectOption}, connectDetail: ${connectDetail}, productId: ${productId}`
+    // );
     if (parseInt(connectOption) === 0 || parseInt(connectDetail) === 0) {
         if (parseInt(connectOption) === 0) {
             $("#planOption").css("border", "1px solid red");
@@ -393,7 +393,7 @@ async function placeOrder() {
         PaymentMethod: paymentMethod
     };
 
-    console.log(formData);
+    // console.log(formData);
 
     const data = await fetchDynamicAPI("addNewCustomer", formData);
 
