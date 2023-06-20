@@ -1,5 +1,5 @@
 
-async function getAvaiableCityList() {
+async function getAvailableCityList() {
     const data = await fetchDynamicAPI('getAvailableCityList', {})
     // console.log("🚀 ~ file: product.js:3 ~ getProductList ~ data:", data)
 
@@ -21,8 +21,8 @@ async function getAvaiableCityList() {
 }
 
 
-$('document').ready(function () {
-    getAvaiableCityList()
+$('document').ready(async function () {
+    await getAvailableCityList()
     $('form').submit(function (e) {
         e.preventDefault();
         return false;
@@ -45,7 +45,7 @@ async function createNew() {
     if (res[0].Result === 1) {
         alert('Create Success!')
         $('#createNewModal').modal('hide')
-        getAvaiableCityList()
+        getAvailableCityList()
     }
 }
 
@@ -74,6 +74,6 @@ async function updateCity(cityId) {
     if (res[0].Result === 1) {
         alert('Edit Success!')
         $('#updateModal').modal('hide')
-        getAvaiableCityList()
+        getAvailableCityList()
     }
 }

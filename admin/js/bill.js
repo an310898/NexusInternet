@@ -31,4 +31,6 @@ async function getBillList() {
     $('#dataTable').DataTable();
 }
 
-getBillList()
+$('document').ready(async function () {
+    await getBillList()
+})

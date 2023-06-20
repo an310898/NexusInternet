@@ -22,11 +22,13 @@ async function getCusList() {
     }).join('')
 
     $('#table-body').html(html)
-    $('#dataTable').DataTable();
+    $('#dataTable').DataTable({
+        "ordering": false
+    });
 }
 
-$('document').ready(function () {
-    getCusList()
+$('document').ready(async function () {
+    await getCusList()
     $('#formPlan').submit(function (e) {
         e.preventDefault();
         return false

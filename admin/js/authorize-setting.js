@@ -15,15 +15,16 @@ async function getRoleList() {
     $('#table-body').html(html)
 }
 
-function initfn() {
-    $('#authorEditForm').submit(function (e) {
+$('document').ready(async function () {
+    $('form').submit(function (e) {
         e.preventDefault();
         return false;
     })
-    getRoleList()
-}
+    await getRoleList()
+})
 
-initfn();
+
+
 
 async function editRoleForm(roleId) {
     $('#authorEditForm').html(` <div class="modal-body">
@@ -47,7 +48,10 @@ async function editRoleForm(roleId) {
                             <label for="RetailStore" style="width: 250px;">Retail Store</label><input type="checkbox" class="form-control form-control-user" style="width: 30px;height: 30px;" id="RetailStore" value="6">
                         </div>
                         <div class="form-group" style="display: flex;">
-                            <label for="AvaiableCity" style="width: 250px;">Avaiable City</label><input type="checkbox" class="form-control form-control-user" style="width: 30px;height: 30px;" id="AvaiableCity" value="7">
+                            <label for="AvailableCity" style="width: 250px;">Available City</label><input type="checkbox" class="form-control form-control-user" style="width: 30px;height: 30px;" id="AvailableCity" value="7">
+                        </div>
+                        <div class="form-group" style="display: flex;">
+                            <label for="Feedback" style="width: 250px;">Feedback</label><input type="checkbox" class="form-control form-control-user" style="width: 30px;height: 30px;" id="Feedback" value="8">
                         </div>
                     </div>
                     <div class="modal-footer">

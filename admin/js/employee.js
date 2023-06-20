@@ -26,6 +26,7 @@ async function getEmpList() {
         let joinDate = new Date(x.joiningDate)
         let formatDate = joinDate.toLocaleDateString('en-GB', { day: '2-digit', month: '2-digit', year: 'numeric' })
         return ` <tr>
+                                            <td>${x.id}</td>
                                             <td>${x.firstName + ' ' + x.lastName}</td>
                                             <td>${x.role.roleName}</td>
                                             <td>${x.phone}</td>
@@ -53,14 +54,15 @@ async function getAllRole() {
     $('#EditRole').html(html)
 }
 
-$('document').ready(function () {
+$('document').ready(async function () {
     $('form').submit(function (e) {
         e.preventDefault();
         return false;
     })
-    getEmpList()
-    getAllRole()
-    getAvailableCity()
+    await getEmpList()
+    await getAllRole()
+    await getAvailableCity()
+
 })
 
 

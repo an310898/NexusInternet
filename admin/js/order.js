@@ -30,8 +30,8 @@ async function getOrderList() {
     $('#dataTable').DataTable();
 }
 
-$('document').ready(function () {
-    getOrderList()
+$('document').ready(async function () {
+    await getOrderList()
     $('#formUpdateStatus').submit(function (e) {
         e.preventDefault();
         return false;

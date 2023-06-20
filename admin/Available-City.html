@@ -50,6 +50,10 @@
                     <span>Dashboard</span></a>
             </li>
 
+
+
+
+
             <!-- Divider -->
             <hr class="sidebar-divider">
 
@@ -73,6 +77,9 @@
                     </div>
                 </div>
             </li>
+
+
+
 
             <div id="authorizeSetting">
             </div>
@@ -148,8 +155,8 @@
                     <!-- DataTales Example -->
                     <div class="card shadow mb-4">
                         <div class="card-header py-3 d-flex justify-content-between align-items-center">
-                            <h6 class="m-0 font-weight-bold text-primary">Employee Table</h6>
-                            <button class="btn m-0 " data-toggle="modal" data-target="#createNewModal" style="line-height: 1.2;padding: 10px;border: 1px solid #e3e6f0;border-radius: 0;">Create new Employee</button>
+                            <h6 class="m-0 font-weight-bold text-primary">Available City Table</h6>
+                            <button class="btn m-0 " data-toggle="modal" data-target="#createNewModal" style="line-height: 1.2;padding: 10px;border: 1px solid #e3e6f0;border-radius: 0;">Create New City</button>
 
                         </div>
                         <div class="card-body">
@@ -157,13 +164,9 @@
                                 <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
                                     <thead>
                                         <tr>
-                                            <th>Emp Id</th>
-                                            <th>Name</th>
-                                            <th>Role</th>
-                                            <th>Phone</th>
-                                            <th>Start date</th>
-                                            <th>Salary</th>
-                                            <th>State</th>
+                                            <th>Id</th>
+                                            <th>City Name</th>
+                                            <th>Postal Code</th>
                                             <th></th>
                                         </tr>
                                     </thead>
@@ -221,127 +224,64 @@
         </div>
     </div>
 
-    <div class="modal fade" id="createNewModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+
+
+
+    <div class="modal fade show" id="createNewModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
         <div class="modal-dialog" role="document">
             <div class="modal-content">
                 <div class="modal-header">
-                    <h5 class="modal-title" id="exampleModalLabel">Create new employee</h5>
+                    <h5 class="modal-title" id="exampleModalLabel">Create new city</h5>
                     <button class="close" type="button" data-dismiss="modal" aria-label="Close">
                         <span aria-hidden="true">x</span>
                     </button>
                 </div>
                 <form action="#" method="post" class="user">
                     <div class="modal-body">
-                        <div class="form-group row">
-                            <div class="col-sm-6 mb-3 mb-sm-0">
-                                <input type="text" class="form-control form-control-user" id="FirstName" placeholder="First Name">
-                            </div>
-                            <div class="col-sm-6">
-                                <input type="text" class="form-control form-control-user" id="LastName" placeholder="Last Name">
-                            </div>
+                        <div class="form-group">
+                            <input type="text" class="form-control form-control-user" id="CityName" placeholder="City Name">
                         </div>
                         <div class="form-group">
-                            <input type="email" class="form-control form-control-user" id="Email" placeholder="Email Address">
+                            <input type="text" class="form-control form-control-user" id="PostalCode" placeholder="Postal Code">
                         </div>
-                        <div class="form-group">
-                            <input type="tel" class="form-control form-control-user" id="Phone" placeholder="Phone">
-                        </div>
-                        <div class="form-group">
-                            <input type="date" class="form-control form-control-user" id="BirthDay" placeholder="BirthDay">
-                        </div>
-                        <div class="form-group">
-                            <input type="text" class="form-control form-control-user" id="UserName" placeholder="User Name">
-                        </div>
-                        <div class="form-group">
-                            <input type="password" class="form-control form-control-user" id="Password" placeholder="Password">
-                        </div>
-                        <div class="form-group">
-                            <input type="text" class="form-control form-control-user" id="Salary" placeholder="Salary">
-                        </div>
-                        <div class="form-group">
-                            <select name="City" id="City">
-                            </select>
 
-                        </div>
-                        <div class="form-group">
-                            <select name="Role" id="Role">
-                            </select>
 
-                        </div>
                     </div>
                     <div class="modal-footer">
                         <button class="btn btn-secondary" type="button" data-dismiss="modal">Cancel</button>
-                        <button class="btn btn-primary" type="submit" onclick="createNewEmp()">Create</button>
+                        <button class="btn btn-primary" id="btn-create" type="submit" onclick="createNew()">Create</button>
                     </div>
                 </form>
             </div>
         </div>
     </div>
-
-
-    <div class="modal fade show" id="editModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal fade show" id="updateModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
         <div class="modal-dialog" role="document">
             <div class="modal-content">
                 <div class="modal-header">
-                    <h5 class="modal-title" id="exampleModalLabel">Edit employee</h5>
+                    <h5 class="modal-title" id="exampleModalLabel">Edit City</h5>
                     <button class="close" type="button" data-dismiss="modal" aria-label="Close">
                         <span aria-hidden="true">x</span>
                     </button>
                 </div>
-                <form action="#" class="user">
+                <form action="#" method="post" class="user">
                     <div class="modal-body">
-                        <div class="form-group row">
-                            <div class="col-sm-6 mb-3 mb-sm-0">
-                                <input type="text" class="form-control form-control-user" id="EditFirstName" placeholder="First Name">
-                            </div>
-                            <div class="col-sm-6">
-                                <input type="text" class="form-control form-control-user" id="EditLastName" placeholder="Last Name">
-                            </div>
+                        <div class="form-group">
+                            <input type="text" class="form-control form-control-user" id="EditCityName" placeholder="City Name">
                         </div>
                         <div class="form-group">
-                            <input type="email" class="form-control form-control-user" id="EditEmail" placeholder="Email Address">
+                            <input type="text" class="form-control form-control-user" id="EditPostalCode" placeholder="Postal Code">
                         </div>
-                        <div class="form-group">
-                            <input type="tel" class="form-control form-control-user" id="EditPhone" placeholder="Phone">
-                        </div>
-                        <div class="form-group">
-                            <input type="date" class="form-control form-control-user" id="EditBirthDay" placeholder="BirthDay">
-                        </div>
-                        <div class="form-group">
-                            <input type="text" class="form-control form-control-user" id="EditUserName" placeholder="User Name">
-                        </div>
-                        <div class="form-group">
-                            <input type="password" class="form-control form-control-user" id="EditPassword" placeholder="Password">
-                        </div>
-                        <div class="form-group">
-                            <input type="text" class="form-control form-control-user" id="EditSalary" placeholder="Salary">
-                        </div>
-                        <div class="form-group">
-                            <select name="City" id="EditCity">
-                            </select>
 
-                        </div>
-                        <div class="form-group">
-                            <select name="Role" id="EditRole">
-                            </select>
-
-                        </div>
-                        <div class="form-group">
-                            <select name="State" id="EditState">
-                                <option value="Active">Active</option>
-                                <option value="Deactive">Deactive</option>
-                            </select>
-                        </div>
                     </div>
                     <div class="modal-footer">
                         <button class="btn btn-secondary" type="button" data-dismiss="modal">Cancel</button>
-                        <button class="btn btn-primary" id="btn-edit" type="submit" onclick="editEmp()">Edit</button>
+                        <button class="btn btn-primary" id="btn-edit" type="submit">Edit</button>
                     </div>
                 </form>
             </div>
         </div>
     </div>
-
     <!-- Bootstrap core JavaScript-->
     <script src="vendor/jquery/jquery.min.js"></script>
     <script src="vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
@@ -364,7 +304,7 @@
     <script src="js/fetch.js"></script>
     <script src="js/cookie.js"></script>
     <script src="js/authenticate.js"></script>
-    <script defer src="js/employee.js"></script>
+    <script src="js/available-city.js"></script>
 
 </body>
 

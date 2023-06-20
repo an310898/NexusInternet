@@ -25,9 +25,9 @@ async function getRetailStoreList() {
 }
 
 
-$('document').ready(function () {
-    getAvailableCity()
-    getRetailStoreList()
+$('document').ready(async function () {
+    await getAvailableCity()
+    await getRetailStoreList()
     $('form').submit(function (e) {
         e.preventDefault();
         return false;

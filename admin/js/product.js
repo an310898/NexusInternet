@@ -19,6 +19,7 @@ async function getProductList() {
     const html = data.map(x => {
 
         return ` <tr>
+                                            <td>${x.Id}</td>
                                             <td>${x.ProductName}</td>
 <td ><div style="width:100px;height:auto"><img style="width:100px;height:100px;object-fit:contain" src="${x.ProductImageUrl}"></div></td>
                                             <td><div  style="min-height:100px;max-height:150px;overflow-y: scroll;">${x.Description}</div></td>
@@ -38,13 +39,14 @@ async function getProductList() {
     $('#dataTable').DataTable();
 }
 
-$('document').ready(function () {
-    getProductList()
+$('document').ready(async function () {
     $('form').submit(function (e) {
         e.preventDefault();
         return false;
     })
-    getAllPlan()
+    await getAllPlan()
+    await getProductList()
+
 
 
 })
